@@ -1,9 +1,12 @@
 #!/bin/bash
 
+#Change url as needed, remember to include trailing '/' depending on wordlist. 
 BASE_URL="http://example.com/"
 
+#Change wordlist path as needed
 INPUT_FILE="Directories.txt"
 
+#Change output filename as needed.
 OUTPUT_FILE="found_directories.txt"
 
 TOTAL_LINES=$(wc -l < "$INPUT_FILE")
