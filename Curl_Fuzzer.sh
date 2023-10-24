@@ -4,7 +4,7 @@
 BASE_URL="http://example.com/"
 
 # Change path to input file and wordlist as needed
-INPUT_FILE="Directories.txt"
+INPUT_FILE="Wordlist.txt"
 
 # Change output filename as needed
 OUTPUT_FILE="found_directories.txt"
