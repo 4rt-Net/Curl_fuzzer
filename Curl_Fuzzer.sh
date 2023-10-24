@@ -1,19 +1,32 @@
 #!/bin/bash
 
-BASE_URL="http://example.com/" #Change URL as needed, remember to include trailing '/'
+BASE_URL="http://example.com/"
 
-OUTPUT_FILE="found_directories.txt" #Change output filename as needed. 
+INPUT_FILE="Directories.txt"
+
+OUTPUT_FILE="found_directories.txt"
+
+TOTAL_LINES=$(wc -l < "$INPUT_FILE")
+
+CURRENT_LINE=0
 
 [ -e "$OUTPUT_FILE" ] && rm "$OUTPUT_FILE"
 
 while IFS= read -r directory; do
+    # Increment the current line count
+    CURRENT_LINE=$((CURRENT_LINE + 1))
+    
+    echo "$CURRENT_LINE/$TOTAL_LINES - ${BASE_URL}${directory}"
+    
     response=$(curl -s -o /dev/null -w "%{http_code}" "${BASE_URL}${directory}")
 
     if [ "$response" -eq 200 ]; then
         echo "Directory '$directory' exists on ${BASE_URL}"
         echo "$directory" >> "$OUTPUT_FILE"
     fi
-    sleep 2 #Delay between requests set to 2 seconds by default. 
-done < path_to_directories_wordlist #Change path to wordlist file as needed.
+    
+    # Change delay as needed depending on network sensitivity
+    sleep 2
+done < "$INPUT_FILE"
 
 echo "Found directories written to $OUTPUT_FILE"
